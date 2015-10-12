@@ -1,13 +1,19 @@
-    function Polygon(cx, cy, radius, rotation, sideCount) {
+    function Polygon(cx, cy, radius, rotation, sideCount, dFactory) {
+
         this.cx = cx;
         this.cy = cy;
         this.radius = radius;
         this.rotation = rotation;
         this.sideCount = sideCount;
+        this.dFactory = dFactory;
         this.update();
+        this.pointsPerEdge = 0;
+        this.centrality = true;
+        this.parallel = true;
     };
 
     Polygon.prototype.update = function() {
+        this.even = ((this.sideCount % 2) == 0) ? true : false;
         this.peripherals = [];
         this.baseAngle = ((2 * Math.PI) / this.sideCount);
         this.center = new p5.Vector(this.cx, this.cy);

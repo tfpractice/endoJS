@@ -1,4 +1,5 @@
 function Tesselation(cx, cy, baseGon, depth, propFlag) {
+
     this.baseGon = baseGon;
     this.cx = cx;
     this.cy = cy;
@@ -6,6 +7,7 @@ function Tesselation(cx, cy, baseGon, depth, propFlag) {
     this.depth = depth;
     this.propFlag = propFlag;
     this.baseAngle = baseGon.baseAngle;
+    this.dFactory = baseGon.dFactory;
     this.apoOffset = this.baseGon.apoOffset;
     if (this.propFlag == true) {
         this.radius = this.baseGon.radius * Math.pow(3, this.depth);
@@ -15,7 +17,7 @@ function Tesselation(cx, cy, baseGon, depth, propFlag) {
         this.rotation = this.baseGon.rotation + (this.apoOffset * this.depth);
     };
     this.update();
-    // console.log(this.prototype);
+    // // .log(this.prototype);
 }
 
 Tesselation.prototype = Object.create(Polygon.prototype);
@@ -49,7 +51,7 @@ Tesselation.prototype.update = function() {
         this.exoVector = new p5.Vector.fromAngle(this.rotation + this.apoOffset);
         exoVector.mult(this.exoMagnitude);
     }
-    // console.log(this);
+    // //console.log(this);
 };
 
 Tesselation.prototype.tesselate = function() {
@@ -95,7 +97,7 @@ Tesselation.prototype.tesselate = function() {
         }
     } else if (this.depth == 0) {
         this.display();
-        central = new Polygon(this.cx, this.cy, this.baseGon.radius, this.baseGon.rotation, this.baseGon.sideCount);
+        central = new Polygon(this.cx, this.cy, this.baseGon.radius, this.baseGon.rotation, this.baseGon.sideCount, this.dFactory);
         central.tesselate();
         // Polygon.prototype.display.call(this);
     }
@@ -105,7 +107,7 @@ Tesselation.prototype.tesselate = function() {
 
 Tesselation.prototype.connectPeripherals = function() {
     this.peripherals.forEach(function(peri, pID, pArray) {
-        console.log(peri);
+        //console.log(peri);
         var center = peri.center;
         var nextIndex = (pID + 1) % this.sideCount;
         var nextPoly = pArray[nextIndex];

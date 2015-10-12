@@ -1,8 +1,9 @@
 describe('Polygon', function() {
-    var myPolygon;
+    var myPolygon, myFactory;
 
     beforeEach(function() {
-        myPolygon = new Polygon(100, 100, 50, 0, 6);
+        myFactory = new DisplayFactory();
+        myPolygon = new Polygon(100, 100, 50, 0, 6, myFactory);
     });
 
     describe('init', function() {
@@ -21,10 +22,17 @@ describe('Polygon', function() {
         it('initializes with a sideCount', function() {
             expect(myPolygon.sideCount).toBe(6);
         });
+        it('initializes witha dFactory', function() {
+            expect(myPolygon.dFactory).toBe(myFactory);
+            
+        });
     });
 
 
     describe('update', function() {
+        it('assigns an even boolean', function() {
+            expect(myPolygon.even).toBeTrue();
+        });
         it('assigns a baseAngle', function() {
             expect(myPolygon.baseAngle).toBeNumber();
             console.log(myPolygon);
